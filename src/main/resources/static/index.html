@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Info Collector</title>
+    <script>
+        function login() {
+            let userId = document.form1.userId.value;
+
+            let loginData = {
+                method: 'POST',
+                body : JSON.stringify({userId:userId}),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            }
+
+            fetch('/api/login',loginData)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+        function sendPageInfo() {
+            fetch('/api/collect')
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+<h1>Page Info Collector</h1>
+<form name="form1">
+    <input name="userId" value="12345" ><button onclick="login()">로그인</button> <br>
+    <button onclick="sendPageInfo()">Send Page Info</button>
+</form>
+</body>
+</html>
