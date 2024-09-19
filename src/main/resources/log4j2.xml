@@ -19,7 +19,8 @@
         </Console>
         <File name="FileLog" fileName="${filename}">
             <PatternLayout>
-                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+                <pattern>%d %p %m%n</pattern>
+                <!--<pattern>%d %p %C{1.} [%t] %m%n</pattern>-->
             </PatternLayout>
         </File>
     </Appenders>

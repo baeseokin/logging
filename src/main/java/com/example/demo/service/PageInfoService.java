@@ -4,6 +4,9 @@ import com.example.demo.util.RequestInfoHolder;
 import com.example.demo.util.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
@@ -19,13 +22,30 @@ public class PageInfoService {
     public void sendPageInfoToServer(RequestInfoHolder.RequestInfo requestInfo) {
 
         // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
-        logger.info("----------------- Page Info start -------------------");
+        String s = "{ " + "\"RequestID\":\"" + requestInfo.getRequestId()+ "\","
+                +"\"ThreadName\":\"" + requestInfo.getThreadName()+ "\","
+                +"\"RequestTime\":\"" + requestInfo.getRequestTime()+ "\","
+                +"\"userID\":\"" + requestInfo.getUserId()+ "\","
+                +"\"ResponseStatus\":\"" + requestInfo.getResponseStatus()+ "\","
+                +"\"RequestURI\":\"" + requestInfo.getRequestURI()+ "\"}";
+
+        System.out.println(s);
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(s);
+            JSONObject jobj = (JSONObject) obj;
+            logger.info(jobj);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+/*        logger.info("---Page Info start");
         logger.info("Request ID: " + requestInfo.getRequestId());
         logger.info("Thread Name: " + requestInfo.getThreadName());
         logger.info("Request Time: " + requestInfo.getRequestTime());
         logger.info("user ID: " + requestInfo.getUserId());
         logger.info("Response Status: " + requestInfo.getResponseStatus());
-        logger.info("Request URI: " + requestInfo.getRequestURI());
+        logger.info("Request URI: " + requestInfo.getRequestURI());*/
 
 
 /*        try {
@@ -33,7 +53,7 @@ public class PageInfoService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }*/
-        logger.info("----------------- Page Info end -------------------");
+        //logger.info("---Page Info end");
 
         // 실제로 HTTP API 호출하는 로직이 들어갈 수 있음
     }
