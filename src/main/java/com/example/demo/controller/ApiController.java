@@ -31,11 +31,24 @@ public class ApiController {
     // Log4j Logger
     private final Logger logger = LogManager.getLogger(ApiController.class);
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody String data) {
+    @GetMapping("/login")
+    public ResponseEntity<String> login(HttpServletRequest request) {
 
+        if(request!=null){
+            if(!"".equals(request.getParameter("userId"))){
+                //사용자의 정보를 가져와서 Session에 넣는다.
+                request.getSession(true).setAttribute("userId", userId);
+            }else{
+                System.out.println("userId not exists !!!");
+            }    
+        }    
+        //String userId = (String)SessionUtil.getSession().getAttribute("userId");
+        //System.out.println("userId :"+ userId);
+        //사용자의 정보를 가져와서 Session에 넣는다.
+        //request.getSession(true).setAttribute("userId", userId);
+        
         //logger.info("data :"+ data);
-        JSONParser parser = new JSONParser(data);
+        /*JSONParser parser = new JSONParser(data);
         try {
             Object obj = parser.parse();
             String userId = (String) ((HashMap<String, String>)obj).get("userId");
@@ -45,7 +58,7 @@ public class ApiController {
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         // Response
         return ResponseEntity.ok("login successfully.");
