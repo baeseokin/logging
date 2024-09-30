@@ -42,13 +42,21 @@ public class LoggingInterceptor implements HandlerInterceptor {
             if(useIdo!=null){
                 userId = (String)useIdo;
             }
+        }else{
+            userId = (String)request.getParameter("userId");
         }
         String requestURI = request.getRequestURI();
         String responseStatus = String.valueOf(response.getStatus());
         RequestInfoHolder.RequestInfo requestInfo = new RequestInfoHolder.RequestInfo(requestId, threadName, requestTime, responseStatus, userId, requestURI);
         RequestInfoHolder.setRequestInfo(requestInfo);
         // 호출전 로그 전송
-        pageInfoService.sendPageInfoToServer(requestInfo);
+        if("/api/login".equals(requestURI)){
+            pageInfoService.sendPageInfoToFileBeat(requestInfo);
+        }else{
+            pageInfoService.sendPageInfoToLogstash(requestInfo);
+        }
+//
+
         // 요청이 끝나면 ThreadLocal에서 UUID 제거
         uuidHolder.remove();
 

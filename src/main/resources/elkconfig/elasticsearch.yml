@@ -86,3 +86,5 @@ cluster.initial_master_nodes: node-1
 # transport:
 #  ssl:
 #   enabled: true
+
+#xpack.security.enabled: false

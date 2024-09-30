@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,21 +33,40 @@ public class ApiController {
     // Log4j Logger
     private final Logger logger = LogManager.getLogger(ApiController.class);
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody String data) {
+    @GetMapping("/login")
+    public ResponseEntity<String> login(HttpServletRequest request) {
 
-        //logger.info("data :"+ data);
-        JSONParser parser = new JSONParser(data);
-        try {
-            Object obj = parser.parse();
-            String userId = (String) ((HashMap<String, String>)obj).get("userId");
-            System.out.println("userId :"+ userId);
-            //사용자의 정보를 가져와서 Session에 넣는다.
-            request.getSession(true).setAttribute("userId", userId);
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        if(request!=null){
+            if(!"".equals(request.getParameter("userId"))){
+                String userId = (String)request.getParameter("userId");
+                //사용자의 정보를 가져와서 Session에 넣는다.
+                request.getSession(true).setAttribute("userId", userId);
+            }else{
+                System.out.println("userId not exists !!!");
+            }
         }
+//
+//
+//        //logger.info("data :"+ data);
+//        JSONParser parser = new JSONParser(data);
+//
+//        try {
+//            Object obj = parser.parse();
+//            String userId = (String) ((HashMap<String, String>)obj).get("userId");
+//            System.out.println("userId :"+ userId);
+//
+//            //사용자의 정보를 가져와서 Session에 넣는다.
+//            request.getSession(true).setAttribute("userId", userId);
+//
+//        } catch (ParseException e) {
+//            if(data !=null){
+//                String spUserId = data.split("=")[1];
+//                request.getSession(true).setAttribute("userId", spUserId);
+//            }else{
+//                throw new RuntimeException(e);
+//            }
+//
+//        }
 
         // Response
         return ResponseEntity.ok("login successfully.");
@@ -74,4 +95,6 @@ public class ApiController {
         // Response
         return ResponseEntity.ok("bizService successfully.");
     }
+
+
 }

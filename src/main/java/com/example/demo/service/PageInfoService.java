@@ -7,9 +7,13 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
+import reactor.core.Disposable;
+import reactor.core.publisher.Mono;
+
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
@@ -18,9 +22,11 @@ public class PageInfoService {
     // Log4j Logger
     private final Logger logger = LogManager.getLogger(PageInfoService.class);
 
-    @Async
-    public void sendPageInfoToServer(RequestInfoHolder.RequestInfo requestInfo) {
+    @Autowired
+    private ApiService apiService;
 
+    @Async
+    public void sendPageInfoToLogstash(RequestInfoHolder.RequestInfo requestInfo){
         // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
         String s = "{ " + "\"RequestID\":\"" + requestInfo.getRequestId()+ "\","
                 +"\"ThreadName\":\"" + requestInfo.getThreadName()+ "\","
@@ -30,6 +36,25 @@ public class PageInfoService {
                 +"\"RequestURI\":\"" + requestInfo.getRequestURI()+ "\"}";
 
         System.out.println(s);
+        Mono<String> response = apiService.sendJsonToExternalApi(s);
+        response.subscribe(result -> System.out.println("send to logstash directly :" + result));
+
+    }
+
+
+
+    @Async
+    public void sendPageInfoToFileBeat(RequestInfoHolder.RequestInfo requestInfo) {
+
+        // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
+        String s = "{ " + "\"RequestID\":\"" + requestInfo.getRequestId()+ "\","
+                +"\"ThreadName\":\"" + requestInfo.getThreadName()+ "\","
+                +"\"RequestTime\":\"" + requestInfo.getRequestTime()+ "\","
+                +"\"userID\":\"" + requestInfo.getUserId()+ "\","
+                +"\"ResponseStatus\":\"" + requestInfo.getResponseStatus()+ "\","
+                +"\"RequestURI\":\"" + requestInfo.getRequestURI()+ "\"}";
+
+        System.out.println("send to filebeat :" + s);
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(s);
