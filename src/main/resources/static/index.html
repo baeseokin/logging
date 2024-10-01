@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Info Collector</title>
+    <title>Page Info Collecting Test</title>
     <script>
         function login() {
             let userId = document.form1.userId.value;
@@ -14,18 +14,20 @@
                 .catch(error => console.error('Error:', error));
         }
         function sendPageInfo() {
-            fetch('/api/collect')
+            fetch('/api/bizservice')
                 .then(response => response.text())
                 .then(data => console.log(data))
                 .catch(error => console.error('Error:', error));
         }
+
     </script>
 </head>
 <body>
-<h1>Page Info Collector</h1>
+<h1>Page Info Collecting Test</h1>
 <form name="form1">
     <input name="userId" value="12345" ><button onclick="login()">로그인</button> <br>
-    <button onclick="sendPageInfo()">Send Page Info</button>
+    >> 페이지 이동 : <a href="http://localhost:8080/P00001.html">P00001</a> <br>
+    >> 페이지 이동 : <a href="http://localhost:8080/P00002.html">P00002</a> <br>
 </form>
 </body>
 </html>

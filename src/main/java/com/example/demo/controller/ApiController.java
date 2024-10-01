@@ -46,7 +46,7 @@ public class ApiController {
     }
 
 
-    @GetMapping("/collect")
+    @GetMapping("/bizservice")
     public ResponseEntity<String> collectPageInfo(HttpServletRequest request) {
 
         //비즈니스로직 수행

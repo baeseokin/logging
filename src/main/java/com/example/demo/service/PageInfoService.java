@@ -22,32 +22,17 @@ public class PageInfoService {
     @Async
     public void sendPageInfoToLogstash(RequestInfoHolder.RequestInfo requestInfo){
         // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
-        String s = "{ " + "\"RequestID\":\"" + requestInfo.getRequestId()+ "\","
-                +"\"ThreadName\":\"" + requestInfo.getThreadName()+ "\","
-                +"\"RequestTime\":\"" + requestInfo.getRequestTime()+ "\","
-                +"\"userID\":\"" + requestInfo.getUserId()+ "\","
-                +"\"ResponseStatus\":\"" + requestInfo.getResponseStatus()+ "\","
-                +"\"RequestURI\":\"" + requestInfo.getRequestURI()+ "\"}";
-
+        String s = requestInfo.toJsonString();
         System.out.println(s);
         Mono<String> response = apiService.sendJsonToExternalApi(s);
         response.subscribe(result -> System.out.println("send to logstash directly :" + result));
-
     }
 
 
 
     @Async
     public void sendPageInfoToFileBeat(RequestInfoHolder.RequestInfo requestInfo) {
-
-        // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
-        String s = "{ " + "\"RequestID\":\"" + requestInfo.getRequestId()+ "\","
-                +"\"ThreadName\":\"" + requestInfo.getThreadName()+ "\","
-                +"\"RequestTime\":\"" + requestInfo.getRequestTime()+ "\","
-                +"\"userID\":\"" + requestInfo.getUserId()+ "\","
-                +"\"ResponseStatus\":\"" + requestInfo.getResponseStatus()+ "\","
-                +"\"RequestURI\":\"" + requestInfo.getRequestURI()+ "\"}";
-
+        String s = requestInfo.toJsonString();
         System.out.println("send to filebeat :" + s);
         JSONParser parser = new JSONParser();
         try {

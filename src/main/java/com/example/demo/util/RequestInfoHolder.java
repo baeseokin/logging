@@ -25,15 +25,19 @@ public class RequestInfoHolder {
         private String responseStatus;
         private String userId;
         private String requestURI;
+        private String pageId;
+        private String serviceId;
 
         // Constructor, getters, and setters
-        public RequestInfo(String requestId, String threadName, LocalDateTime requestTime, String responseStatus, String userId,String requestURI) {
+        public RequestInfo(String requestId, String threadName, LocalDateTime requestTime, String responseStatus, String userId,String requestURI, String pageId, String serviceId) {
             this.requestId = requestId;
             this.threadName = threadName;
             this.requestTime = requestTime;
             this.responseStatus = responseStatus;
             this.userId = userId;
             this.requestURI = requestURI;
+            this.pageId = pageId;
+            this.serviceId = serviceId;
         }
 
         // Getters and Setters
@@ -84,6 +88,37 @@ public class RequestInfoHolder {
 
         public void setRequestURI(String requestURI) {
             this.requestURI = requestURI;
+        }
+
+        public String getServiceId() {
+            return serviceId;
+        }
+
+        public void setServiceId(String serviceId) {
+            this.serviceId = serviceId;
+        }
+
+
+        public String getPageId() {
+            return pageId;
+        }
+
+        public void setPageId(String pageId) {
+            this.pageId = pageId;
+        }
+
+        public String toJsonString(){
+            String s = "{"
+                    +"\"RequestID\":\"" + this.getRequestId()+ "\","
+                    +"\"ThreadName\":\"" + this.getThreadName()+ "\","
+                    +"\"RequestTime\":\"" + this.getRequestTime()+ "\","
+                    +"\"userID\":\"" + this.getUserId()+ "\","
+                    +"\"ResponseStatus\":\"" + this.getResponseStatus()+ "\","
+                    +"\"RequestURI\":\"" + this.getRequestURI()+ "\","
+                    +"\"PageId\":\"" + this.getPageId()+ "\","
+                    +"\"ServiceId\":\"" + this.getServiceId()
+                    +"\"}";
+            return s;
         }
     }
 }

@@ -45,9 +45,19 @@ public class LoggingInterceptor implements HandlerInterceptor {
         }else{
             userId = (String)request.getParameter("userId");
         }
+
         String requestURI = request.getRequestURI();
         String responseStatus = String.valueOf(response.getStatus());
-        RequestInfoHolder.RequestInfo requestInfo = new RequestInfoHolder.RequestInfo(requestId, threadName, requestTime, responseStatus, userId, requestURI);
+        String pageId = "";
+        if(request.getParameter("pageId")!=null){
+            pageId = (String)request.getParameter("pageId");
+        }
+        String serviceId = "";
+        if(request.getParameter("serviceId")!=null){
+            serviceId = (String)request.getParameter("serviceId");
+        }
+
+        RequestInfoHolder.RequestInfo requestInfo = new RequestInfoHolder.RequestInfo(requestId, threadName, requestTime, responseStatus, userId, requestURI, pageId, serviceId);
         RequestInfoHolder.setRequestInfo(requestInfo);
         // 호출전 로그 전송
         if("/api/login".equals(requestURI)){
