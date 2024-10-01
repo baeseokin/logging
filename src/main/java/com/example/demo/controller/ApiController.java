@@ -6,16 +6,11 @@ import com.example.demo.service.PageInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
@@ -45,28 +40,6 @@ public class ApiController {
                 System.out.println("userId not exists !!!");
             }
         }
-//
-//
-//        //logger.info("data :"+ data);
-//        JSONParser parser = new JSONParser(data);
-//
-//        try {
-//            Object obj = parser.parse();
-//            String userId = (String) ((HashMap<String, String>)obj).get("userId");
-//            System.out.println("userId :"+ userId);
-//
-//            //사용자의 정보를 가져와서 Session에 넣는다.
-//            request.getSession(true).setAttribute("userId", userId);
-//
-//        } catch (ParseException e) {
-//            if(data !=null){
-//                String spUserId = data.split("=")[1];
-//                request.getSession(true).setAttribute("userId", spUserId);
-//            }else{
-//                throw new RuntimeException(e);
-//            }
-//
-//        }
 
         // Response
         return ResponseEntity.ok("login successfully.");
@@ -76,21 +49,8 @@ public class ApiController {
     @GetMapping("/collect")
     public ResponseEntity<String> collectPageInfo(HttpServletRequest request) {
 
-        /*// 세션 ID, 현재 스레드 정보, 호출 시간 및 응답 상태 수집
-        System.out.println("--------------------start logging -------------------------");
-        String requestId = uuidInterceptor.getUUID();
-        String threadName = Thread.currentThread().getName();
-        LocalDateTime requestTime = LocalDateTime.now();
-        String userId = (String)SessionUtil.getSession().getAttribute("userId");
-        String responseStatus = "OK";*/
-
         //비즈니스로직 수행
         bizService.execute();
-
-//        RequestInfoHolder.RequestInfo requestInfo = new RequestInfoHolder.RequestInfo(requestId, threadName, requestTime, responseStatus, userId);
-//        RequestInfoHolder.setRequestInfo(requestInfo);
-//        //호출전 로그 전송
-//        pageInfoService.sendPageInfoToServer(requestInfo);
 
         // Response
         return ResponseEntity.ok("bizService successfully.");
