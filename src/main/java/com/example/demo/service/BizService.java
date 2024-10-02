@@ -18,7 +18,7 @@ public class BizService {
 
 
 
-    public void execute() {
+    public void execute() throws BizException{
 
 
         // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
@@ -26,6 +26,8 @@ public class BizService {
 
         //호출후 로그 전송
         //pageInfoService.sendPageInfoToServer(requestInfo);
+        //Exception 발생
+        throw new BizException("예외 테스트 입니다.");
 
         logger.info("######################### end biz #############################");
 
