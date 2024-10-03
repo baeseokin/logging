@@ -32,13 +32,13 @@ filebeat.inputs:
       - C:\Users\pds71\IdeaProjects\demo\logs\logs\*.log
       #- /var/log/*.log
       #- c:\programdata\elasticsearch\logs\*
-    #parsers:
-    #  - multiline:
-    #      type: pattern
-    #      pattern : '---Page Info start'
-    #      negate: true
-    #      match: after
-    #      flush_pattern: '---Page Info end'
+    parsers:
+      - multiline:
+          type: pattern
+          pattern : '-->'
+          negate: true
+          match: after
+          flush_pattern: '<--'
 
 # ============================== Filebeat modules ==============================
 
