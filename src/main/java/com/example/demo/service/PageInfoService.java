@@ -38,7 +38,7 @@ public class PageInfoService {
         try {
             Object obj = parser.parse(s);
             JSONObject jobj = (JSONObject) obj;
-            logger.info(jobj);
+            //logger.info(jobj);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

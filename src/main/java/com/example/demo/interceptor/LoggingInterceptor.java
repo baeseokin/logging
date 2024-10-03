@@ -60,12 +60,12 @@ public class LoggingInterceptor implements HandlerInterceptor {
         RequestInfoHolder.RequestInfo requestInfo = new RequestInfoHolder.RequestInfo(requestId, threadName, requestTime, responseStatus, userId, requestURI, pageId, serviceId);
         RequestInfoHolder.setRequestInfo(requestInfo);
         // 호출전 로그 전송
-        if("/api/login".equals(requestURI)){
+        pageInfoService.sendPageInfoToLogstash(requestInfo);
+/*        if("/api/login".equals(requestURI)){
             pageInfoService.sendPageInfoToFileBeat(requestInfo);
         }else{
             pageInfoService.sendPageInfoToLogstash(requestInfo);
-        }
-//
+        }*/
 
         // 요청이 끝나면 ThreadLocal에서 UUID 제거
         uuidHolder.remove();

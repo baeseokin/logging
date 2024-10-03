@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Page Info Collecting Test</title>
     <script>
         function login() {
@@ -13,13 +14,6 @@
                 .then(data => console.log(data))
                 .catch(error => console.error('Error:', error));
         }
-        function sendPageInfo() {
-            fetch('/api/bizservice')
-                .then(response => response.text())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-
     </script>
 </head>
 <body>

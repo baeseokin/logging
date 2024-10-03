@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class ApiController {
+public class ApiController extends BaseController{
 
     @Autowired
     private BizService bizService;
@@ -46,15 +47,24 @@ public class ApiController {
     }
 
 
-    @GetMapping("/bizservice")
-    public ResponseEntity<String> collectPageInfo(HttpServletRequest request) {
-
+    @GetMapping("/bizserviceSuccess")
+    public ResponseEntity<String> bizserviceSuccess(HttpServletRequest request) {
         //비즈니스로직 수행
-        bizService.execute();
-
+        bizService.executeSuccess();
         // Response
-        return ResponseEntity.ok("bizService successfully.");
+        return ResponseEntity.ok("executeSuccess successfully.");
+    }
+    @GetMapping("/bizserviceError")
+    public ResponseEntity<String> bizserviceError(HttpServletRequest request) {
+        //비즈니스로직 수행
+        bizService.executeError();
+        // Response
+        return ResponseEntity.ok("bizserviceError successfully.");
     }
 
 
+    @GetMapping("favicon.ico")
+    @ResponseBody
+    public void returnNoFavicon() {
+    }
 }

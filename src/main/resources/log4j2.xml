@@ -28,9 +28,10 @@
     <!-- 해당 name 위치의 logging 설정 -->
     <Loggers>
 
-        <Logger name="com.example.demo.service.PageInfoService" level="info" additivity="false">
+        <Logger name="com.example.demo.controller.BaseController" level="error" additivity="false">
             <AppenderRef ref="FileLog"/>
         </Logger>
+
 
         <Root level="info">
             <AppenderRef ref="ConsoleLog"/>

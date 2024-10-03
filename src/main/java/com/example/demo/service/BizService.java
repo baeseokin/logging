@@ -16,22 +16,18 @@ public class BizService {
     // Log4j Logger
     private final Logger logger = LogManager.getLogger(BizService.class);
 
-
-
-    public void execute() throws BizException{
-
-
+    public void executeSuccess() throws CustomException{
         // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
-        logger.info("######################### start biz #############################");
+        logger.info("######################### start executeSuccess #############################");
+        logger.info("######################### end executeSuccess #############################");
+    }
 
+    public void executeError() throws CustomException{
+        // 서버로 수집된 정보를 전송하는 로직 (간단하게 출력으로 대체)
+        logger.info("######################### start executeError #############################");
         //호출후 로그 전송
         //pageInfoService.sendPageInfoToServer(requestInfo);
         //Exception 발생
-        throw new BizException("예외 테스트 입니다.");
-
-        logger.info("######################### end biz #############################");
-
-
-        // 실제로 HTTP API 호출하는 로직이 들어갈 수 있음
+        throw new CustomException("ERR001","예외 테스트 입니다.");
     }
 }

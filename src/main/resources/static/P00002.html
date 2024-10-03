@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P00002</title>
     <script>
-        function execBiz(serviceId) {
+        function execBiz(serviceId, isSuccess) {
             let pageId = document.form1.pageId.value;
             document.form1.serviceId.value = serviceId;
 
-            fetch('/api/bizservice?pageId='+pageId+'&serviceId='+serviceId)
-                .then(response => response.text())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+            if(isSuccess){
+                fetch('/api/bizserviceSuccess?pageId='+pageId+'&serviceId='+serviceId)
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }else{
+                fetch('/api/bizserviceError?pageId='+pageId+'&serviceId='+serviceId)
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }
         }
     </script>
 </head>
@@ -20,8 +27,10 @@
 <h1>P00002</h1>
 <form name="form1">
     PageId : <input name="pageId" value="P00002" ><br>
-    ServiceId : <input name="serviceId"  type="hidden"> <button onclick="execBiz('S00003')">execBiz(S00003)</button>
-                                         <button onclick="execBiz('S00004')">execBiz(S00004)</button><br> <br>
+    ServiceId : <input name="serviceId"  type="hidden"> <button onclick="execBiz('S00003', true)">execBiz(S00003, success)</button>
+                                                        <button onclick="execBiz('S00003', false)">execBiz(S00003, error)</button><br>
+                                                        <button onclick="execBiz('S00004', true)">execBiz(S00004, success)</button>
+                                                        <button onclick="execBiz('S00004', false)">execBiz(S00004, error)</button><br>
     >> 페이지 이동 : <a href="http://localhost:8080/index.html">logon page</a> <br>
     >> 페이지 이동 : <a href="http://localhost:8080/P00001.html">P00001</a> <br>
 </form>
