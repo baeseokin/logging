@@ -20,6 +20,7 @@ public abstract class BaseController {
         logger.error("Error Code: {}", ex.getErrorCode());
         logger.error("Error Message: {}", ex.getMessage());
         logger.error("Stack Trace: ", ex);
+        logger.error("--> Error End");
 
         // 클라이언트에 보낼 응답
         return new ResponseEntity<>(ex.getErrorCode() + ": " + ex.getMessage(), HttpStatus.BAD_REQUEST);
