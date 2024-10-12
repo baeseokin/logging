@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P00001</title>
+    <title>PGEB0100001(계약조회)</title>
     <script>
         function execBiz(serviceId, isSuccess) {
             let pageId = document.form1.pageId.value;
@@ -20,23 +20,19 @@
                     .then(data => console.log(data))
                     .catch(error => console.error('Error:', error));
             }
-
         }
-
     </script>
 </head>
 <body>
-<h1>P00001</h1>
+<h1>PGEB0100001(계약조회)</h1>
 <form name="form1">
-    PageId : <input name="pageId" value="P00001" ><br>
-    ServiceId : <input name="serviceId" type="hidden">  <button onclick="execBiz('S00001', true)">execBiz(S00001, success)</button>
-                                                        <button onclick="execBiz('S00001', false)">execBiz(S00001, error)</button><br>
-                                                        <button onclick="execBiz('S00002', true)">execBiz(S00002, success)</button>
-                                                        <button onclick="execBiz('S00002', false)">execBiz(S00002, error)</button><br>
-
-    <br>
+    PageId : <input name="pageId" value="PGEB0100001" ><br>
+    ServiceId : <input name="serviceId"  type="hidden"> <button onclick="execBiz('RSTB0100001', true)">execBiz(RSTB0100001, success)</button>
+                                                        <button onclick="execBiz('RSTB0100001', false)">execBiz(RSTB0100001, error)</button><br>
+                                                        <button onclick="execBiz('RSTB0100002', true)">execBiz(RSTB0100002, success)</button>
+                                                        <button onclick="execBiz('RSTB0100002', false)">execBiz(RSTB0100002, error)</button><br>
     >> 페이지 이동 : <a href="http://localhost:8080/index.html">logon page</a> <br>
-    >> 페이지 이동 : <a href="http://localhost:8080/P00002.html">P00002</a> <br>
+    >> 페이지 이동 : <a href="http://localhost:8080/P00001.html">PGEA0100001(가입설계처리)</a> <br>
 </form>
 </body>
 </html>

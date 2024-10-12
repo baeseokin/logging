@@ -82,9 +82,9 @@ cluster.initial_master_nodes: node-1
 #action.destructive_requires_name: false
 
 #xpack.security:
-# enabled: true
+# enabled: false
 # transport:
 #  ssl:
 #   enabled: true
-
-#xpack.security.enabled: false
+xpack.security.transport.ssl.enabled: false
+xpack.security.http.ssl.enabled: false
